@@ -20,6 +20,7 @@ async function bootstrap() {
     .setDescription('API para la gestión de una paquetería')
     .setVersion('1.0')
     .addTag('paqueteria')
+    .addBearerAuth()  //esta línea genera el botón Authorize
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
