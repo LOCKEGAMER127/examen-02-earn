@@ -14,18 +14,21 @@ import { Camion } from './camion/entities/camion.entity';
 import { Ciudad } from './ciudad/entities/ciudad.entity';
 import { Paquete } from './paquete/entities/paquete.entity';
 import { Conduce } from './conduce/entities/conduce.entity';
+import { ConfigModule } from '@nestjs/config/dist/config.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: process.env.DB_HOST ?? process.env.HOST,
-      port: Number(process.env.DB_PORT) ?? process.env.PORT,
-      username: process.env.DB_USER ?? process.env.USERNAME,
-      password: process.env.DB_PASS ?? process.env.PASSWORD,
-      database: process.env.DB_NAME ?? process.env.DATABASE,
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
       entities: [Usuario, Rol, Camionero, Camion, Ciudad, Paquete, Conduce],
       synchronize: false,
+      ssl: { rejectUnauthorized: false }, // necesario para Aiven
     }),
     AuthModule,
     UsuariosModule,
