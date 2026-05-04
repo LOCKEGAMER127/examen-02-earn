@@ -1,4 +1,3 @@
-// src/app.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
@@ -20,11 +19,11 @@ import { Conduce } from './conduce/entities/conduce.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: process.env.DB_HOST ?? 'localhost',
-      port: Number(process.env.DB_PORT) ?? 3306,
-      username: process.env.DB_USER ?? 'root',
-      password: process.env.DB_PASS ?? '',
-      database: process.env.DB_NAME ?? 'Citas',
+      host: process.env.DB_HOST ?? process.env.HOST,
+      port: Number(process.env.DB_PORT) ?? process.env.PORT,
+      username: process.env.DB_USER ?? process.env.USERNAME,
+      password: process.env.DB_PASS ?? process.env.PASSWORD,
+      database: process.env.DB_NAME ?? process.env.DATABASE,
       entities: [Usuario, Rol, Camionero, Camion, Ciudad, Paquete, Conduce],
       synchronize: false,
     }),
